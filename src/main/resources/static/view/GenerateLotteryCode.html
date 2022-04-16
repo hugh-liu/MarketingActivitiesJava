@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>获取抽奖码</title>
+		<link rel="stylesheet" href="../cdn/element-plus/lib/theme-chalk/index.css">
+	</head>
+	<style>
+		.pageTitle {
+			text-align: center;
+			font-size: 22px;
+			color: white;
+			line-height: 60px;
+			background-color: #3f5161;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<div class="common-layout">
+			<el-container>
+				<!-- 头部模块 -->
+				<el-header class="pageTitle">
+					获取抽奖码
+				</el-header>
+				<!-- 内容模块 -->
+				<el-main ref="main">
+					<el-form class="demo-form-inline" @submit.native.prevent>
+						<el-form-item label="奖品等级">
+							<el-select v-model="form.awardLevel" placeholder="选择奖品等级" @change="awardLevelChange">
+								<el-option label="一等奖" value="1"></el-option>
+								<el-option label="二等奖" value="2"></el-option>
+								<el-option label="三等奖" value="3"></el-option>
+								<el-option label="四等奖" value="4"></el-option>
+								<el-option label="五等奖" value="5"></el-option>
+								<el-option label="六等奖" value="6"></el-option>
+							</el-select>
+						</el-form-item>
+						<el-form-item label="生成数量">
+							<el-input v-model.number="form.number"/>
+						</el-form-item>
+						<el-form-item>
+							<el-button type="primary" @click="generate">生成抽奖码</el-button>
+						</el-form-item>
+					</el-form>
+					<el-table ref="table" :data="tableData" style="width: 100%">
+					    <el-table-column type="index" label="序号" width="60px"align="center"></el-table-column>
+					    <el-table-column prop="awardLevel" label="奖品等级" align="center"></el-table-column>
+					    <el-table-column prop="lotteryMumber" label="抽奖号" align="center"></el-table-column>
+					  </el-table>
+				</el-main>
+			</el-container>
+			</div>
+		</div>
+	</body>
+	<!-- import Vue before Element -->
+	<script src="../cdn/vue/3.1.1/vue.global.js"></script>
+	<!-- import JavaScript -->
+	<script src="../cdn/element-plus/lib/index.full.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../cdn/axios/axios.min.js"></script>
+	<!-- 国际化 -->
+	<script type="text/javascript">
+		var Main = {
+			data() {
+				return {
+					pageTitle: '获取抽奖码',
+					form: {
+						awardLevel: '',
+						number: 0,
+					},
+					tableData: []
+				}
+			},
+			created() {
+			},
+			beforeMount() {
+			},
+			methods: {
+				// 生成抽奖码
+				generate() {
+					if (!vm.form.awardLevel) {
+						ElMessage.error("请选择奖品等级");
+						return;
+					}
+					if (!vm.form.number) {
+						ElMessage.error("请输入大于0的数量");
+						return;
+					}
+					axios.post("/api/lottery/generateLotteryCode", vm.form).then(function(response) {
+						if (response.code == 1) {
+							tableData = response.data;
+						} else {
+							vm.$message.error(response.errorMsg);
+						}
+					}).catch(function(error) {
+						vm.$message.error(error.message);
+					});
+				},
+			},
+		};
+		const app = Vue.createApp(Main);
+		app.use(ElementPlus);
+		const vm = app.mount("#app");
+	</script>
+</html>
