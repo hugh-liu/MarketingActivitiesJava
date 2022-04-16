@@ -19,4 +19,18 @@ public class IndexController {
     return "index";
   }
 
+  /**
+   * 生成抽奖码页面
+   * @return
+   */
+  @GetMapping(value = "/generateLotteryCode")
+  public String generateLotteryCode() {
+    return "generateLotteryCode";
+  }
+
+  @GetMapping(value = "/indexWC")
+  public String indexWC() {
+    return "indexWC";
+  }
+
 }

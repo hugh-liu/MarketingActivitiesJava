@@ -11,11 +11,11 @@
         <result property="usageTime" column="usage_time" javaType="java.time.LocalDateTime"  />
     </resultMap>
 
-    <update id="insertLotteryCode" parameterType="java.util.List">
-        <foreach collection="lotteryCodes" item="lotteryCode">
-            INSERT INTO lottery_code('lottery_number''', 'award_level', 'used_status', 'create_time')
-            VALUE(#{lotteryCode.lotteryNumber}, #{lotteryCode.awardLevel}, #{lotteryCode.usedStatus}, #{lotteryCode.createTime});
+    <insert id="insertLotteryCode">
+        INSERT INTO `lottery_code` (`lottery_number`, `award_level`, `used_status`, `create_time`) VALUES
+        <foreach collection="lotteryCodes" item="lotteryCode" separator=",">
+               (#{lotteryCode.lotteryNumber}, #{lotteryCode.awardLevel}, #{lotteryCode.usedStatus}, #{lotteryCode.createTime})
         </foreach>
-    </update>
+    </insert>
 
 </mapper>

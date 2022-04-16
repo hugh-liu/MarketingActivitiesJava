@@ -40,12 +40,13 @@
 						</el-form-item>
 						<el-form-item>
 							<el-button type="primary" @click="generate">生成抽奖码</el-button>
+							<el-button type="primary" @click="exportExcel" icon="el-icon-download">导出抽奖码</el-button>
 						</el-form-item>
 					</el-form>
 					<el-table ref="table" :data="tableData" style="width: 100%">
 					    <el-table-column type="index" label="序号" width="60px"align="center"></el-table-column>
 					    <el-table-column prop="awardLevel" label="奖品等级" align="center"></el-table-column>
-					    <el-table-column prop="lotteryMumber" label="抽奖号" align="center"></el-table-column>
+					    <el-table-column prop="lotteryNumber" label="抽奖码" align="center"></el-table-column>
 					  </el-table>
 				</el-main>
 			</el-container>
@@ -58,14 +59,18 @@
 	<script src="../cdn/element-plus/lib/index.full.js"></script>
 	<script src="../js/jquery.min.js"></script>
 	<script src="../cdn/axios/axios.min.js"></script>
-	<!-- 国际化 -->
+	<script src="../js/utils/Util.js"></script>
+	<!-- 导入导出 -->
+	<script src="../js/excel/excel.js"></script>
+	<script src="../js/excel/xlsx.full.min.js"></script>
+	<script src="../js/excel/FileSaver.min.js"></script>
 	<script type="text/javascript">
 		var Main = {
 			data() {
 				return {
 					pageTitle: '获取抽奖码',
 					form: {
-						awardLevel: '',
+						awardLevel: null,
 						number: 0,
 					},
 					tableData: []
@@ -87,14 +92,45 @@
 						return;
 					}
 					axios.post("/api/lottery/generateLotteryCode", vm.form).then(function(response) {
-						if (response.code == 1) {
-							tableData = response.data;
+						if (response.data.code == 0) {
+							vm.tableData = response.data.data;
 						} else {
-							vm.$message.error(response.errorMsg);
+							vm.$message.error(response.data.errorMsg);
 						}
 					}).catch(function(error) {
 						vm.$message.error(error.message);
 					});
+				},
+				// 导出抽奖码
+				exportExcel() {
+					const exportTable = [];
+					for (let i = 0;i < vm.tableData.length; i++) {
+						const rowData = {"index":i+1, "awardLevel":vm.tableData[i].awardLevel, "lotteryNumber":vm.tableData[i].lotteryNumber};
+						exportTable.push(rowData);
+					}
+					const workBook = {
+						SheetNames: ['抽奖码'],
+						Sheets: {},
+					};
+					const header = ['index','awardLevel','lotteryNumber'];
+					const headerDisplay = {'index':'序号', 'awardLevel' : '奖品等级','lotteryNumber' : '抽奖码'};
+					const data = [headerDisplay].concat(exportTable);
+					workBook.Sheets['抽奖码'] = XLSX.utils.json_to_sheet(data, {header:header, skipHeader:true});
+					/* 获取二进制字符串作为输出 */
+					const wbout = XLSX.write(workBook, {
+						bookType: 'xlsx',
+						bookSST: true,
+						ignoreEC: false,
+						type: 'array'
+					})
+					try {
+						const blob = new Blob([wbout], {
+							type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+						}); // 文件类型
+						saveAs(blob, "抽奖码" + getDateTime() + ".xlsx"); // 使用saveAs保存数据到excel
+					} catch (e) {
+						if (typeof console !== 'undefined') console.log(e, wbout)
+					}
 				},
 			},
 		};

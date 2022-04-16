@@ -4,7 +4,7 @@ import com.tencent.wxcloudrun.dao.LotteryCodeMapper;
 import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
 import com.tencent.wxcloudrun.model.LotteryCode;
 import com.tencent.wxcloudrun.service.LotteryService;
-import org.apache.commons.codec.digest.DigestUtils;
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +54,6 @@ public class LotteryServiceImpl implements LotteryService {
             lotteryCodes.add(lotteryCode);
         }
         lotteryCodeMapper.insertLotteryCode(lotteryCodes);
-        return null;
+        return lotteryCodes;
     }
 }
