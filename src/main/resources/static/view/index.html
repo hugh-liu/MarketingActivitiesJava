@@ -23,38 +23,24 @@
 			text-align: center;
 		}
 		
-		.g-lottery-case .g-left h2 {
-			font-size: 20px;
-			line-height: 32px;
-			font-weight: normal;
-			margin-left: 20px;
-		}
-		
 		.g-lottery-box {
-			width: 400px;
 			height: 400px;
-			margin-left: 30px;
-			position: relative;
 			background: url(../img/ly-plate-c.gif) no-repeat;
+			background-position: center;
 		}
 		
 		.g-lottery-box .g-lottery-img {
-			width: 340px;
-			height: 340px;
-			position: relative;
+			height: 400px;
 			background: url(../img/bg-lottery.png) no-repeat;
-			background-size: 100%;
-			left: 30px;
-			top: 30px;
+			background-size: 340px;
+			background-position: center;
 		}
 		
 		.g-lottery-box .playbtn {
-			width: 186px;
-			height: 186px;
-			position: absolute;
-			top: 77px;
-			left: 77px;
+			height: 400px;
 			background: url(../img/playbtn.png) no-repeat;
+			background-size: 180px;
+			background-position: center;
 		}
 		
 		.m-title {
@@ -89,12 +75,10 @@
 			<el-row>
 				<el-col>
 					<div class="g-lottery-case">
-						<div class="g-left">
-							<h2>您已拥有<span class="playnum"></span>次抽奖机会，点击立刻抽奖！~</h2>
-							<div class="g-lottery-box">
-								<div class="g-lottery-img">
-									<a class="playbtn" href="javascript:;" title="开始抽奖"></a>
-								</div>
+						<h2>您已拥有<span class="playnum"></span>次抽奖机会，点击立刻抽奖！~</h2>
+						<div class="g-lottery-box">
+							<div class="g-lottery-img">
+								<div class="playbtn"></div>
 							</div>
 						</div>
 						<div style="margin: 0px 30px;">
