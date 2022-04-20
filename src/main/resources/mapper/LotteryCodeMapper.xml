@@ -7,6 +7,9 @@
         <result property="awardLevel" column="award_level"/>
         <result property="usedStatus" column="used_status"/>
         <result property="winner" column="winner"/>
+        <result property="name" column="name"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="receivingAddress" column="receiving_address"/>
         <result property="createTime" column="create_time" javaType="java.time.LocalDateTime" />
         <result property="usageTime" column="usage_time" javaType="java.time.LocalDateTime"  />
     </resultMap>
@@ -17,5 +20,22 @@
                (#{lotteryCode.lotteryNumber}, #{lotteryCode.awardLevel}, #{lotteryCode.usedStatus}, #{lotteryCode.createTime})
         </foreach>
     </insert>
+
+    <select id="getLotteryCode" resultMap="lotteryCodeMapper">
+        SELECT `lottery_number`, `award_level`
+        FROM lottery_code
+        WHERE used_status = 0
+        <if test="awardLevel > 0">
+            AND award_level = #{awardLevel}
+        </if>
+        ORDER BY award_level,create_time
+    </select>
+
+    <select id="queryWinningInfo" resultMap="lotteryCodeMapper">
+        SELECT lottery_number, award_level, used_status, winner, usage_time
+        FROM lottery_code
+        WHERE winner = #{winner}
+        ORDER BY award_level,usage_time
+    </select>
 
 </mapper>

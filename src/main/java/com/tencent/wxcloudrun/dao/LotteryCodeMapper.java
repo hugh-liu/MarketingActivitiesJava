@@ -22,4 +22,18 @@ public interface LotteryCodeMapper {
      */
     void insertLotteryCode(@Param("lotteryCodes") List<LotteryCode> lotteryCodes);
 
+    /**
+     * 获取未使用的抽奖码
+     * @param awardLevel
+     * @return
+     */
+    List<LotteryCode> getLotteryCode(@Param("awardLevel") int awardLevel);
+
+    /**
+     * 查询中奖信息
+     * @param winner
+     * @return
+     */
+    List<LotteryCode> queryWinningInfo(@Param("winner") String winner);
+
 }

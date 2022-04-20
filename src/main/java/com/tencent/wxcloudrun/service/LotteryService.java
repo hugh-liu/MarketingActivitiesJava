@@ -1,6 +1,7 @@
 package com.tencent.wxcloudrun.service;
 
 import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
+import com.tencent.wxcloudrun.dto.LotteryRequest;
 import com.tencent.wxcloudrun.model.LotteryCode;
 
 import java.util.List;
@@ -22,5 +23,29 @@ public interface LotteryService {
      * @throws Exception
      */
     List<LotteryCode> generateLotteryCode(GenerateLotteryCodeRequest request) throws Exception;
+
+    /**
+     * 获取未使用的抽奖码
+     * @param awardLevel 奖品等级
+     * @return
+     * @throws Exception
+     */
+    List<LotteryCode> getLotteryCode(int awardLevel) throws Exception;
+
+    /**
+     * 查询中奖信息
+     * @param winner
+     * @return
+     * @throws Exception
+     */
+    List<LotteryCode> queryWinningInfo(String winner) throws Exception;
+
+    /**
+     * 抽奖
+     * @param lotteryRequest
+     * @return
+     * @throws Exception
+     */
+    int lottery(LotteryRequest lotteryRequest) throws Exception;
 
 }

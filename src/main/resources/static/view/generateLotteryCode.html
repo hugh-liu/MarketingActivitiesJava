@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+	<head>
 		<meta charset="utf-8">
-		<title>获取抽奖码</title>
+		<title>生成抽奖码</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">		
 		<link rel="stylesheet" href="../cdn/element-plus/lib/theme-chalk/index.css">
 	</head>
 	<style>
@@ -16,11 +20,10 @@
 	</style>
 	<body>
 		<div id="app">
-			<div class="common-layout">
 			<el-container>
 				<!-- 头部模块 -->
 				<el-header class="pageTitle">
-					获取抽奖码
+					生成抽奖码
 				</el-header>
 				<!-- 内容模块 -->
 				<el-main ref="main">
@@ -41,16 +44,16 @@
 						<el-form-item>
 							<el-button type="primary" @click="generate">生成抽奖码</el-button>
 							<el-button type="primary" @click="exportExcel" icon="el-icon-download">导出抽奖码</el-button>
+							<el-button type="primary" @click="getLotteryCode">获取未使用的抽奖码</el-button>
 						</el-form-item>
 					</el-form>
 					<el-table ref="table" :data="tableData" style="width: 100%">
-					    <el-table-column type="index" label="序号" width="60px"align="center"></el-table-column>
-					    <el-table-column prop="awardLevel" label="奖品等级" align="center"></el-table-column>
-					    <el-table-column prop="lotteryNumber" label="抽奖码" align="center"></el-table-column>
+						<el-table-column type="index" label="序号" width="60px"align="center"></el-table-column>
+						<el-table-column prop="awardLevel" label="奖品等级" align="center"></el-table-column>
+						<el-table-column prop="lotteryNumber" label="抽奖码" align="center"></el-table-column>
 					  </el-table>
 				</el-main>
 			</el-container>
-			</div>
 		</div>
 	</body>
 	<!-- import Vue before Element -->
@@ -132,6 +135,20 @@
 						if (typeof console !== 'undefined') console.log(e, wbout)
 					}
 				},
+				// 获取未使用的抽奖码
+				getLotteryCode() {
+					axios.get("/api/lottery/getLotteryCode", {
+						params: {awardLevel: vm.form.awardLevel ? vm.form.awardLevel : 0}
+					}).then(function(response) {
+						if (response.data.code == 0) {
+							vm.tableData = response.data.data;
+						} else {
+							vm.$message.error(response.data.errorMsg);
+						}
+					}).catch(function(error) {
+						vm.$message.error(error.message);
+					});
+				}
 			},
 		};
 		const app = Vue.createApp(Main);

@@ -2,9 +2,11 @@ package com.tencent.wxcloudrun.service.impl;
 
 import com.tencent.wxcloudrun.dao.LotteryCodeMapper;
 import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
+import com.tencent.wxcloudrun.dto.LotteryRequest;
 import com.tencent.wxcloudrun.model.LotteryCode;
 import com.tencent.wxcloudrun.service.LotteryService;
 import lombok.extern.log4j.Log4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -55,5 +57,23 @@ public class LotteryServiceImpl implements LotteryService {
         }
         lotteryCodeMapper.insertLotteryCode(lotteryCodes);
         return lotteryCodes;
+    }
+
+    @Override
+    public List<LotteryCode> getLotteryCode(int awardLevel) throws Exception {
+        return lotteryCodeMapper.getLotteryCode(awardLevel);
+    }
+
+    @Override
+    public List<LotteryCode> queryWinningInfo(String winner) throws Exception {
+        if (StringUtils.isEmpty(winner)) {
+            throw new Exception("请输入中奖获得者信息");
+        }
+        return lotteryCodeMapper.queryWinningInfo(winner);
+    }
+
+    @Override
+    public int lottery(LotteryRequest lotteryRequest) throws Exception {
+        return 0;
     }
 }

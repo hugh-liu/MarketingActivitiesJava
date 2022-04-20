@@ -1,153 +1,271 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<title>抽奖</title>
+	<head>
 		<meta charset="utf-8">
-		<meta name="keywords" content="">
-		<meta name="description" content="">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>抽奖</title>
 		<meta name="renderer" content="webkit">
-		<link rel="stylesheet" type="text/css" href=../css/reset.css" />
-		<style>
-			.g-content {
-				width: 100%;
-				background: #fbe3cc;
-				height: auto;
-				font-family: "微软雅黑", "microsoft yahei";
-			}
-			.g-content .g-lottery-case {
-				width: 500px;
-				height: 445px;
-				margin: 0 auto;
-				overflow: hidden;
-			}
-			
-			.g-content .g-lottery-case .g-left h2 {
-				font-size: 20px;
-				line-height: 32px;
-				font-weight: normal;
-				margin-left: 20px;
-			}
-			
-			.g-content .g-lottery-case .g-left {
-				width: 450px;
-				float: left;
-			}
-			
-			.g-lottery-box {
-				width: 400px;
-				height: 400px;
-				margin-left: 30px;
-				position: relative;
-				background: url(../img/ly-plate-c.gif) no-repeat;
-			}
-			
-			.g-lottery-box .g-lottery-img {
-				width: 340px;
-				height: 340px;
-				position: relative;
-				background: url(../img/bg-lottery.png) no-repeat;
-				left: 30px;
-				top: 30px;
-			}
-			
-			.g-lottery-box .playbtn {
-				width: 186px;
-				height: 186px;
-				position: absolute;
-				top: 77px;
-				left: 77px;
-				background: url(../img/playbtn.png) no-repeat;
-			}
-		</style>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">		
+		<link rel="stylesheet" href="../cdn/element-plus/lib/theme-chalk/index.css">
 	</head>
+	<style>
+		body {
+			margin: 0px;
+			background: #fbe3cc;
+			font-family: "微软雅黑", "microsoft yahei";
+		}
 
+		.g-lottery-case {
+			width: 450px;
+			margin: 0 auto;
+			overflow: hidden;
+			text-align: center;
+		}
+		
+		.g-lottery-case .g-left h2 {
+			font-size: 20px;
+			line-height: 32px;
+			font-weight: normal;
+			margin-left: 20px;
+		}
+		
+		.g-lottery-box {
+			width: 400px;
+			height: 400px;
+			margin-left: 30px;
+			position: relative;
+			background: url(../img/ly-plate-c.gif) no-repeat;
+		}
+		
+		.g-lottery-box .g-lottery-img {
+			width: 340px;
+			height: 340px;
+			position: relative;
+			background: url(../img/bg-lottery.png) no-repeat;
+			background-size: 100%;
+			left: 30px;
+			top: 30px;
+		}
+		
+		.g-lottery-box .playbtn {
+			width: 186px;
+			height: 186px;
+			position: absolute;
+			top: 77px;
+			left: 77px;
+			background: url(../img/playbtn.png) no-repeat;
+		}
+		
+		.m-title {
+			text-align: center;
+			color: firebrick;
+			font-weight: bold;
+			margin: 10px 0px;
+		}
+		
+		.jpsm-bg {
+			background-color: rgba(255, 255, 255, 0.6);
+			width: 110px;
+			height: 165px;
+			margin: 5px;
+			padding: 10px 5px;
+			text-align: center;
+		}
+		.jpsm-bg img {
+			width: 100px;
+		}
+		.jpsm-title {
+			width: 100px;
+			color: red;
+			font-weight: bold;
+		}
+		.jpsm-desc {
+			font-size: 10px;
+		}
+	</style>
 	<body>
-		<div class="g-content">
-			<div class="g-lottery-case">
-				<div class="g-left">
-					<h2>您已拥有<span class="playnum"></span>次抽奖机会，点击立刻抽奖！~</h2>
-					<div class="g-lottery-box">
-						<div class="g-lottery-img">
-							<a class="playbtn" href="javascript:;" title="开始抽奖"></a>
+		<div id="app">
+			<el-row>
+				<el-col>
+					<div class="g-lottery-case">
+						<div class="g-left">
+							<h2>您已拥有<span class="playnum"></span>次抽奖机会，点击立刻抽奖！~</h2>
+							<div class="g-lottery-box">
+								<div class="g-lottery-img">
+									<a class="playbtn" href="javascript:;" title="开始抽奖"></a>
+								</div>
+							</div>
+						</div>
+						<div style="margin: 0px 30px;">
+							<div class="m-title">活动奖品</div>
+							<el-row>
+								<el-col :span="8">
+									<div class="jpsm-bg">
+										<img src="../img/一等奖.png" />
+										<div class="jpsm-title">一等将</div>
+										<span class="jpsm-desc">iPhone13pro max/8888现金红包</span>
+									</div>
+								</el-col>
+								<el-col :span="8">
+									<div class="jpsm-bg">
+										<img src="../img/二等奖.png" />
+										<div class="jpsm-title">二等将</div>
+										<span class="jpsm-desc">5200现金红包</span>
+									</div>
+								</el-col>
+								<el-col :span="8">
+									<div class="jpsm-bg">
+										<img src="../img/三等奖.png" />
+										<div class="jpsm-title">三等将</div>
+										<span class="jpsm-desc">iPhone12/iPad pro 11英寸</span>
+									</div>
+								</el-col>
+							</el-row>
+							<el-row>
+								<el-col :span="8">
+									<div class="jpsm-bg">
+										<img src="../img/四等奖.png" />
+										<div class="jpsm-title">四等将</div>
+										<span class="jpsm-desc">华为P40/三亚双人游</span>
+									</div>
+								</el-col>
+								<el-col :span="8">
+									<div class="jpsm-bg">
+										<img src="../img/五等奖.png" />
+										<div class="jpsm-title">五等将</div>
+										<span class="jpsm-desc">iPadmini4/ Sweeping robot</span>
+									</div>
+								</el-col>
+								<el-col :span="8">
+									<div class="jpsm-bg">
+										<img src="../img/六等奖.png" />
+										<div class="jpsm-title">六等奖</div>
+										<span class="jpsm-desc">888元现金</span>
+									</div>
+								</el-col>
+							</el-row>
+							<div class="m-title">抽奖规则</div>
+							<div style="color: firebrick; text-align: left;">
+								活动最终解释权为商家所有！
+								<br />
+								<br />
+								活动规则 顾客需看
+								<br />
+								<br />
+								1.“/”是指两个奖品随机其中之一
+								<br />
+								2.中奖后不可更换奖项 除现金之外的奖品不可折现
+							</div>
+							<div class="m-title">我的奖品</div>
+							<div>奖品表格</div>
+							<el-button type="danger" round>领取奖品</el-button>
 						</div>
 					</div>
-				</div>
-			</div>
+				</el-col>
+			</el-row>
 		</div>
-		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript" src="../js/jquery.rotate.min.js"></script>
-		<script>
-			$(function() {
-				var $btn = $('.playbtn');
-				var playnum = 1; //初始次数，由后台传入
-				$('.playnum').html(playnum);
-				var isture = 0;
-				var clickfunc = function() {
-					var data = [1, 2, 3, 4, 5, 6];
-					//data为随机出来的结果，根据概率后的结果
-					data = data[Math.floor(Math.random() * data.length)];
-					switch(data) {
-						case 1:
-							rotateFunc(1, 0, '恭喜您获得2000元理财金!');
-							break;
-						case 2:
-							rotateFunc(2, 60, '谢谢参与~再来一次吧~');
-							break;
-						case 3:
-							rotateFunc(3, 120, '恭喜您获得5200元理财金!');
-							break;
-						case 4:
-							rotateFunc(4, 180, '恭喜您获得100元京东E卡，将在次日以短信形式下发到您的手机上，请注意查收!');
-							break;
-						case 5:
-							rotateFunc(5, 240, '谢谢参与~再来一次吧~');
-							break;
-						case 6:
-							rotateFunc(6, 300, '恭喜您获得1000元理财金!');
-							break;
+	</body>
+	<!-- import Vue before Element -->
+	<script src="../cdn/vue/3.1.1/vue.global.js"></script>
+	<!-- import JavaScript -->
+	<script src="../cdn/element-plus/lib/index.full.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../cdn/axios/axios.min.js"></script>
+	<script src="../js/utils/Util.js"></script>
+	<script type="text/javascript" src="../js/jquery.rotate.min.js"></script>
+	<script type="text/javascript">
+		var Main = {
+			data() {
+				return {
+					pageTitle: '获取抽奖码',
+					form: {
+						awardLevel: null,
+						number: 0,
+					},
+					tableData: []
+				}
+			},
+			created() {
+
+			},
+			beforeMount() {
+			},
+			methods: {
+				
+			},
+		};
+		const app = Vue.createApp(Main);
+		app.use(ElementPlus);
+		const vm = app.mount("#app");
+	</script>
+	<script>
+		$(function() {
+			var $btn = $('.playbtn');
+			var playnum = 10; //初始次数，由后台传入
+			$('.playnum').html(playnum);
+			var isture = 0;
+			var clickfunc = function() {
+				var data = [1, 2, 3, 4, 5, 6];
+				//data为随机出来的结果，根据概率后的结果
+				data = data[Math.floor(Math.random() * data.length)];
+				switch(data) {
+					case 1:
+						rotateFunc(1, 0, 'iPhone13pro max/8888现金红包');
+						break;
+					case 2:
+						rotateFunc(2, 60, '5200现金红包');
+						break;
+					case 3:
+						rotateFunc(3, 120, 'iPhone12/iPad pro 11英寸');
+						break;
+					case 4:
+						rotateFunc(4, 180, '华为P40/三亚双人游');
+						break;
+					case 5:
+						rotateFunc(5, 240, 'iPadmini4/Sweeping robot');
+						break;
+					case 6:
+						rotateFunc(6, 300, '888元现金');
+						break;
+				}
+			}
+			$btn.click(function() {
+				if(isture) return; // 如果在执行就退出
+				isture = true; // 标志为 在执行
+				//先判断是否登录,未登录则执行下面的函数
+				if(1 == 2) {
+					$('.playnum').html('0');
+					alert("请先登录");
+					isture = false;
+				} else { //登录了就执行下面
+					if(playnum <= 0) { //当抽奖次数为0的时候执行
+						alert("没有次数了");
+						$('.playnum').html(0);
+						isture = false;
+					} else { //还有次数就执行
+						playnum = playnum - 1; //执行转盘了则次数减1
+						if(playnum <= 0) {
+							playnum = 0;
+						}
+						$('.playnum').html(playnum);
+						clickfunc();
 					}
 				}
-				$btn.click(function() {
-					if(isture) return; // 如果在执行就退出
-					isture = true; // 标志为 在执行
-					//先判断是否登录,未登录则执行下面的函数
-					if(1 == 2) {
-						$('.playnum').html('0');
-						alert("请先登录");
-						isture = false;
-					} else { //登录了就执行下面
-						if(playnum <= 0) { //当抽奖次数为0的时候执行
-							alert("没有次数了");
-							$('.playnum').html(0);
-							isture = false;
-						} else { //还有次数就执行
-							playnum = playnum - 1; //执行转盘了则次数减1
-							if(playnum <= 0) {
-								playnum = 0;
-							}
-							$('.playnum').html(playnum);
-							clickfunc();
-						}
+			});
+			var rotateFunc = function(awards, angle, text) {
+				isture = true;
+				$btn.stopRotate();
+				$btn.rotate({
+					angle: 0,
+					duration: 4000, //旋转时间
+					animateTo: angle + 1440, //让它根据得出来的结果加上1440度旋转
+					callback: function() {
+						isture = false; // 标志为 执行完毕
+						alert(text);
 					}
 				});
-				var rotateFunc = function(awards, angle, text) {
-					isture = true;
-					$btn.stopRotate();
-					$btn.rotate({
-						angle: 0,
-						duration: 4000, //旋转时间
-						animateTo: angle + 1440, //让它根据得出来的结果加上1440度旋转
-						callback: function() {
-							isture = false; // 标志为 执行完毕
-							alert(text);
-						}
-					});
-				};
-			});
-		</script>
-	</body>
-
+			};
+		});
+	</script>
 </html>
