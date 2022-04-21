@@ -48,4 +48,11 @@ public interface LotteryService {
      */
     int lottery(LotteryRequest lotteryRequest) throws Exception;
 
+    /**
+     * 保存收货地址
+     * @param lotteryRequest
+     * @throws Exception
+     */
+    void saveReceivingAddress(LotteryRequest lotteryRequest) throws Exception;
+
 }

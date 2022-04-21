@@ -17,29 +17,30 @@
 		}
 
 		.g-lottery-case {
-			width: 450px;
+			width: 410px;
 			margin: 0 auto;
 			overflow: hidden;
 			text-align: center;
 		}
 		
 		.g-lottery-box {
-			height: 400px;
+			height: 360px;
 			background: url(../img/ly-plate-c.gif) no-repeat;
+			background-size: 360px;
 			background-position: center;
 		}
 		
 		.g-lottery-box .g-lottery-img {
-			height: 400px;
+			height: 360px;
 			background: url(../img/bg-lottery.png) no-repeat;
-			background-size: 340px;
+			background-size: 310px;
 			background-position: center;
 		}
 		
 		.g-lottery-box .playbtn {
-			height: 400px;
+			height: 360px;
 			background: url(../img/playbtn.png) no-repeat;
-			background-size: 180px;
+			background-size: 160px;
 			background-position: center;
 		}
 		
@@ -52,14 +53,14 @@
 		
 		.jpsm-bg {
 			background-color: rgba(255, 255, 255, 0.6);
-			width: 110px;
+			width: 100px;
 			height: 165px;
 			margin: 5px;
 			padding: 10px 5px;
 			text-align: center;
 		}
 		.jpsm-bg img {
-			width: 100px;
+			width: 95px;
 		}
 		.jpsm-title {
 			width: 100px;
@@ -69,16 +70,22 @@
 		.jpsm-desc {
 			font-size: 10px;
 		}
+		.el-dialog--center .el-dialog__body {
+			padding: 10px 25px;
+		}
+		.el-dialog__footer {
+			padding-top: 0px;
+		}
 	</style>
 	<body>
 		<div id="app">
 			<el-row>
 				<el-col>
 					<div class="g-lottery-case">
-						<h2>您已拥有<span class="playnum"></span>次抽奖机会，点击立刻抽奖！~</h2>
+						<div style="color: darkred; font-size: 40px; font-weight: bold; margin: 20px;">抽奖大酬宾</div>
 						<div class="g-lottery-box">
 							<div class="g-lottery-img">
-								<div class="playbtn"></div>
+								<div class="playbtn" @click="dialogFormVisible = true"></div>
 							</div>
 						</div>
 						<div style="margin: 0px 30px;">
@@ -148,6 +155,18 @@
 					</div>
 				</el-col>
 			</el-row>
+			<el-dialog v-model="dialogFormVisible" title="信息填写" center>
+				<el-row>
+					<el-input v-model="form.lotteryNumber" placeholder="请输入抽奖码" />
+				</el-row>
+				<br />
+				<el-row>
+					<el-input v-model="form.winner" placeholder="请输入手机号" />
+				</el-row>
+				<template #footer>
+					<el-button type="primary" @click="lotteryClick">抽奖</el-button>
+				</template>
+			</el-dialog>
 		</div>
 	</body>
 	<!-- import Vue before Element -->
@@ -162,94 +181,92 @@
 		var Main = {
 			data() {
 				return {
-					pageTitle: '获取抽奖码',
+					isture: false,
+					dialogFormVisible: false,
 					form: {
-						awardLevel: null,
-						number: 0,
-					},
-					tableData: []
+						lotteryNumber: "",
+						winner: "",
+						name: "",
+						receivingAddress: "",
+					}
 				}
 			},
 			created() {
-
 			},
 			beforeMount() {
 			},
 			methods: {
-				
+				/**
+				 * 点击抽奖事件
+				 */
+				lotteryClick() {
+					if(vm.isture) return; // 如果在执行就退出
+					vm.isture = true; // 标志为在执行
+					if (!vm.form.lotteryNumber) {
+						ElMessage.error("请输入抽奖号码");
+						vm.isture = false;
+						return;
+					}
+					if (!vm.form.winner) {
+						ElMessage.error("请输入手机号码");
+						vm.isture = false;
+						return;
+					}
+					axios.post('/api/lottery/lottery', vm.form).then(function(response) {
+						if (response.data.code == 0) {
+							vm.isture = false;
+							vm.dialogFormVisible = false;
+							vm.form.lotteryNumber = '';
+							vm.clickfunc(response.data.data)
+						} else {
+							vm.isture = false;
+							ElMessage.error(response.data.errorMsg);
+						}
+					}).catch(function(error) {
+						vm.isture = false;
+						ElMessage.error(error.message);
+					});
+				},
+				clickfunc(data) {
+					switch(data) {
+						case 1:
+							vm.rotateFunc(1, 0, 'iPhone13pro max/8888现金红包');
+							break;
+						case 2:
+							vm.rotateFunc(2, 60, '5200现金红包');
+							break;
+						case 3:
+							vm.rotateFunc(3, 120, 'iPhone12/iPad pro 11英寸');
+							break;
+						case 4:
+							vm.rotateFunc(4, 180, '华为P40/三亚双人游');
+							break;
+						case 5:
+							vm.rotateFunc(5, 240, 'iPadmini4/Sweeping robot');
+							break;
+						case 6:
+							vm.rotateFunc(6, 300, '888元现金');
+							break;
+					}
+				},
+				rotateFunc(awards, angle, text) {
+					vm.isture = true;
+					var $btn = $('.playbtn');
+					$btn.stopRotate();
+					$btn.rotate({
+						angle: 0,
+						duration: 4000, //旋转时间
+						animateTo: - (angle + 1440), //让它根据得出来的结果加上1440度旋转
+						callback: function() {
+							vm.isture = false; // 标志为 执行完毕
+							ElMessageBox.alert(text, '恭喜你，中奖啦', {confirmButtonText: 'OK'})
+						}
+					});
+				},
 			},
 		};
 		const app = Vue.createApp(Main);
 		app.use(ElementPlus);
 		const vm = app.mount("#app");
-	</script>
-	<script>
-		$(function() {
-			var $btn = $('.playbtn');
-			var playnum = 10; //初始次数，由后台传入
-			$('.playnum').html(playnum);
-			var isture = 0;
-			var clickfunc = function() {
-				var data = [1, 2, 3, 4, 5, 6];
-				//data为随机出来的结果，根据概率后的结果
-				data = data[Math.floor(Math.random() * data.length)];
-				switch(data) {
-					case 1:
-						rotateFunc(1, 0, 'iPhone13pro max/8888现金红包');
-						break;
-					case 2:
-						rotateFunc(2, 60, '5200现金红包');
-						break;
-					case 3:
-						rotateFunc(3, 120, 'iPhone12/iPad pro 11英寸');
-						break;
-					case 4:
-						rotateFunc(4, 180, '华为P40/三亚双人游');
-						break;
-					case 5:
-						rotateFunc(5, 240, 'iPadmini4/Sweeping robot');
-						break;
-					case 6:
-						rotateFunc(6, 300, '888元现金');
-						break;
-				}
-			}
-			$btn.click(function() {
-				if(isture) return; // 如果在执行就退出
-				isture = true; // 标志为 在执行
-				//先判断是否登录,未登录则执行下面的函数
-				if(1 == 2) {
-					$('.playnum').html('0');
-					alert("请先登录");
-					isture = false;
-				} else { //登录了就执行下面
-					if(playnum <= 0) { //当抽奖次数为0的时候执行
-						alert("没有次数了");
-						$('.playnum').html(0);
-						isture = false;
-					} else { //还有次数就执行
-						playnum = playnum - 1; //执行转盘了则次数减1
-						if(playnum <= 0) {
-							playnum = 0;
-						}
-						$('.playnum').html(playnum);
-						clickfunc();
-					}
-				}
-			});
-			var rotateFunc = function(awards, angle, text) {
-				isture = true;
-				$btn.stopRotate();
-				$btn.rotate({
-					angle: 0,
-					duration: 4000, //旋转时间
-					animateTo: angle + 1440, //让它根据得出来的结果加上1440度旋转
-					callback: function() {
-						isture = false; // 标志为 执行完毕
-						alert(text);
-					}
-				});
-			};
-		});
 	</script>
 </html>

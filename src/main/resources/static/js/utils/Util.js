@@ -1,5 +1,5 @@
 const {
-	ElMessage
+	ElMessage, ElMessageBox
 } = ElementPlus;
 
 /**

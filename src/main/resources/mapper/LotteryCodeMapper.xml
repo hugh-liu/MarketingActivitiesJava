@@ -10,8 +10,8 @@
         <result property="name" column="name"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="receivingAddress" column="receiving_address"/>
-        <result property="createTime" column="create_time" javaType="java.time.LocalDateTime" />
-        <result property="usageTime" column="usage_time" javaType="java.time.LocalDateTime"  />
+        <result property="createTime" column="create_time" javaType="java.util.Date" />
+        <result property="usageTime" column="usage_time" javaType="java.util.Date"  />
     </resultMap>
 
     <insert id="insertLotteryCode">
@@ -37,5 +37,23 @@
         WHERE winner = #{winner}
         ORDER BY award_level,usage_time
     </select>
+
+    <select id="queryPrize" resultMap="lotteryCodeMapper">
+        SELECT *
+        FROM lottery_code
+        WHERE lottery_number = #{lotteryNumber}
+    </select>
+
+    <update id="updateLotteryInfo">
+        UPDATE lottery_code
+        SET used_status=#{lotteryCode.usedStatus}, winner=#{lotteryCode.winner}, usage_time=#{lotteryCode.usageTime}, name=#{lotteryCode.name}, phone_number=#{lotteryCode.phoneNumber}, receiving_address=#{lotteryCode.receivingAddress}
+        WHERE lottery_number=#{lotteryCode.lotteryNumber};
+    </update>
+
+    <update id="saveReceivingAddress">
+        UPDATE lottery_code
+        SET name=#{lotteryCode.name}, receiving_address=#{lotteryCode.receivingAddress}
+        WHERE lottery_number=#{lotteryCode.winner};
+    </update>
 
 </mapper>

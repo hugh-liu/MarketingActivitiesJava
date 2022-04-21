@@ -96,4 +96,19 @@ public class LotteryController {
         }
     }
 
+    /**
+     * 保存收货地址
+     * @param lotteryRequest
+     * @return
+     */
+    @PostMapping(value = "/saveReceivingAddress")
+    ApiResponse saveReceivingAddress(@RequestBody LotteryRequest lotteryRequest) {
+        try {
+            lotteryService.saveReceivingAddress(lotteryRequest);
+            return ApiResponse.ok();
+        } catch (Exception e) {
+            return ApiResponse.error(e.getMessage());
+        }
+    }
+
 }

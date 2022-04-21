@@ -74,6 +74,39 @@ public class LotteryServiceImpl implements LotteryService {
 
     @Override
     public int lottery(LotteryRequest lotteryRequest) throws Exception {
-        return 0;
+        if (StringUtils.isEmpty(lotteryRequest.getLotteryNumber())) {
+            throw new Exception("请输入抽奖号码");
+        }
+        if (StringUtils.isEmpty(lotteryRequest.getWinner())) {
+            throw new Exception("请输入手机号码");
+        }
+        // 查询抽奖码信息
+        LotteryCode lotteryCode = lotteryCodeMapper.queryPrize(lotteryRequest.getLotteryNumber());
+        // 判断抽奖码是否正确
+        if (lotteryCode == null) {
+            throw new Exception("抽奖码错误");
+        }
+        // 判断抽奖码是否已被使用
+        if (lotteryCode.isUsedStatus()) {
+            throw new Exception("该抽奖码已被使用");
+        }
+        // 修改抽奖码信息
+        lotteryCode.setUsedStatus(true);
+        lotteryCode.setWinner(lotteryRequest.getWinner());
+        lotteryCode.setName(lotteryRequest.getName());
+        lotteryCode.setReceivingAddress(lotteryRequest.getReceivingAddress());
+        lotteryCode.setUsageTime(new Date());
+        lotteryCodeMapper.updateLotteryInfo(lotteryCode);
+        // 返回奖品等级
+        return lotteryCode.getAwardLevel();
+    }
+
+    @Override
+    public void saveReceivingAddress(LotteryRequest lotteryRequest) throws Exception {
+        LotteryCode lotteryCode = new LotteryCode();
+        lotteryCode.setWinner(lotteryRequest.getWinner());
+        lotteryCode.setName(lotteryRequest.getName());
+        lotteryCode.setReceivingAddress(lotteryRequest.getReceivingAddress());
+        lotteryCodeMapper.saveReceivingAddress(lotteryCode);
     }
 }

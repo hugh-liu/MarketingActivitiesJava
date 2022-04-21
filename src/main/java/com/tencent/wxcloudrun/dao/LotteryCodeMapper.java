@@ -36,4 +36,23 @@ public interface LotteryCodeMapper {
      */
     List<LotteryCode> queryWinningInfo(@Param("winner") String winner);
 
+    /**
+     * 查询奖品信息
+     * @param lotteryNumber
+     * @return
+     */
+    LotteryCode queryPrize(@Param("lotteryNumber") String lotteryNumber);
+
+    /**
+     * 修改抽奖信息
+     * @param lotteryCode
+     */
+    void updateLotteryInfo(@Param("lotteryCode") LotteryCode lotteryCode);
+
+    /**
+     * 修改收货地址
+     * @param lotteryCode
+     */
+    void saveReceivingAddress(@Param("lotteryCode") LotteryCode lotteryCode);
+
 }
