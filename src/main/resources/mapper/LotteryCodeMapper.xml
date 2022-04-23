@@ -8,7 +8,6 @@
         <result property="usedStatus" column="used_status"/>
         <result property="winner" column="winner"/>
         <result property="name" column="name"/>
-        <result property="phoneNumber" column="phone_number"/>
         <result property="receivingAddress" column="receiving_address"/>
         <result property="createTime" column="create_time" javaType="java.util.Date" />
         <result property="usageTime" column="usage_time" javaType="java.util.Date"  />
@@ -32,10 +31,10 @@
     </select>
 
     <select id="queryWinningInfo" resultMap="lotteryCodeMapper">
-        SELECT lottery_number, award_level, used_status, winner, usage_time
+        SELECT lottery_number, award_level, used_status, winner, usage_time, name, receiving_address
         FROM lottery_code
         WHERE winner = #{winner}
-        ORDER BY award_level,usage_time
+        ORDER BY usage_time desc
     </select>
 
     <select id="queryPrize" resultMap="lotteryCodeMapper">
@@ -46,14 +45,14 @@
 
     <update id="updateLotteryInfo">
         UPDATE lottery_code
-        SET used_status=#{lotteryCode.usedStatus}, winner=#{lotteryCode.winner}, usage_time=#{lotteryCode.usageTime}, name=#{lotteryCode.name}, phone_number=#{lotteryCode.phoneNumber}, receiving_address=#{lotteryCode.receivingAddress}
+        SET used_status=#{lotteryCode.usedStatus}, winner=#{lotteryCode.winner}, usage_time=#{lotteryCode.usageTime}, name=#{lotteryCode.name}, receiving_address=#{lotteryCode.receivingAddress}
         WHERE lottery_number=#{lotteryCode.lotteryNumber};
     </update>
 
     <update id="saveReceivingAddress">
         UPDATE lottery_code
         SET name=#{lotteryCode.name}, receiving_address=#{lotteryCode.receivingAddress}
-        WHERE lottery_number=#{lotteryCode.winner};
+        WHERE winner=#{lotteryCode.winner};
     </update>
 
 </mapper>

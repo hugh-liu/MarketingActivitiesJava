@@ -5,6 +5,7 @@ import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
 import com.tencent.wxcloudrun.dto.LotteryRequest;
 import com.tencent.wxcloudrun.model.LotteryCode;
 import com.tencent.wxcloudrun.service.LotteryService;
+import com.tencent.wxcloudrun.utils.DateUtil;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,11 +66,25 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     @Override
-    public List<LotteryCode> queryWinningInfo(String winner) throws Exception {
+    public Map<String, Object> queryWinningInfo(String winner) throws Exception {
         if (StringUtils.isEmpty(winner)) {
             throw new Exception("请输入中奖获得者信息");
         }
-        return lotteryCodeMapper.queryWinningInfo(winner);
+        List<LotteryCode> lotteryCodes = lotteryCodeMapper.queryWinningInfo(winner);
+        Map<String, Object> objectMap = new HashMap<>();
+        if (lotteryCodes != null && lotteryCodes.size() > 0) {
+            List<Map<String, Object>> maps = new ArrayList<>();
+            for (LotteryCode lotteryCode : lotteryCodes) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("awardLevel", lotteryCode.getAwardLevel());
+                map.put("usageTime", DateUtil.dateToString(lotteryCode.getUsageTime()));
+                maps.add(map);
+            }
+            objectMap.put("name", lotteryCodes.get(0).getName());
+            objectMap.put("receivingAddress", lotteryCodes.get(0).getReceivingAddress());
+            objectMap.put("maps", maps);
+        }
+        return objectMap;
     }
 
     @Override

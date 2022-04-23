@@ -44,7 +44,7 @@ public class LotteryController {
      */
     @PostMapping(value = "/generateLotteryCode")
     ApiResponse generateLotteryCode(@RequestBody GenerateLotteryCodeRequest request) {
-        logger.info("/api/generateLotteryCode post request, awardLevel: {}, number: {}", request.getAwardLevel(), request.getNumber());
+        logger.info("/api/lottery/generateLotteryCode post request, awardLevel: {}, number: {}", request.getAwardLevel(), request.getNumber());
         try {
             return ApiResponse.ok(lotteryService.generateLotteryCode(request));
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class LotteryController {
      */
     @GetMapping(value = "/getLotteryCode")
     ApiResponse getLotteryCode(@RequestParam(value = "awardLevel", required = false) int awardLevel) {
-        logger.info("/api/getLotteryCode get request, awardLevel: {}", awardLevel);
+        logger.info("/api/lottery/getLotteryCode get request, awardLevel: {}", awardLevel);
         try {
             return ApiResponse.ok(lotteryService.getLotteryCode(awardLevel));
         } catch (Exception e) {
@@ -74,7 +74,7 @@ public class LotteryController {
      */
     @GetMapping(value = "/queryWinningInfo")
     ApiResponse queryWinningInfo(@RequestParam(value = "winner", required = false) String winner) {
-        logger.info("/api/getLotteryCode get request, winner: {}", winner);
+        logger.info("/api/lottery/queryWinningInfo get request, winner: {}", winner);
         try {
             return ApiResponse.ok(lotteryService.queryWinningInfo(winner));
         } catch (Exception e) {

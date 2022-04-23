@@ -25,8 +25,6 @@ public class LotteryCode implements Serializable {
     private String winner;
     // 姓名
     private String name;
-    // 手机号码
-    private String phoneNumber;
     // 收货地址
     private String receivingAddress;
     // 创建时间

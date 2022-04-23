@@ -38,7 +38,7 @@ public interface LotteryService {
      * @return
      * @throws Exception
      */
-    List<LotteryCode> queryWinningInfo(String winner) throws Exception;
+    Map<String, Object> queryWinningInfo(String winner) throws Exception;
 
     /**
      * 抽奖
