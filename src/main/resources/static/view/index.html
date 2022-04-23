@@ -327,7 +327,7 @@
 						animateTo: - (angle + 1440), //让它根据得出来的结果加上1440度旋转
 						callback: function() {
 							vm.isture = false; // 标志为 执行完毕
-							vm.prize = vm.awardLevelToText(awards);
+							vm.prize = "恭喜您获得：" + vm.awardLevelToText(awards);
 							vm.prizeImg = '../img/' + awards + '.png'
 							vm.dialogFormVisible4 = true;
 							vm.queryPrize();

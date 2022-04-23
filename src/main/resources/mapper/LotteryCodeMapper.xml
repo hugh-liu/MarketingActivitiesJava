@@ -34,7 +34,7 @@
         SELECT lottery_number, award_level, used_status, winner, usage_time, name, receiving_address
         FROM lottery_code
         WHERE winner = #{winner}
-        ORDER BY usage_time desc
+        ORDER BY usage_time
     </select>
 
     <select id="queryPrize" resultMap="lotteryCodeMapper">
