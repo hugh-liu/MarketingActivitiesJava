@@ -17,31 +17,33 @@
 		}
 
 		.g-lottery-case {
-			width: 410px;
 			margin: 0 auto;
 			overflow: hidden;
 			text-align: center;
 		}
 		
 		.g-lottery-box {
-			height: 360px;
 			background: url(../img/ly-plate-c.gif) no-repeat;
-			background-size: 360px;
+			background-size: 320px;
 			background-position: center;
 		}
 		
 		.g-lottery-box .g-lottery-img {
-			height: 360px;
+			height: 320px;
 			background: url(../img/bg-lottery.png) no-repeat;
-			background-size: 310px;
+			background-size: 277px;
 			background-position: center;
 		}
 		
 		.g-lottery-box .playbtn {
-			height: 360px;
 			background: url(../img/playbtn.png) no-repeat;
-			background-size: 160px;
+			background-size: 140px;
 			background-position: center;
+			width: 150px;
+			height: 150px;
+			margin: 0 auto;
+			position: relative;
+			top: 84px;
 		}
 		
 		.m-title {
@@ -53,17 +55,16 @@
 		
 		.jpsm-bg {
 			background-color: rgba(255, 255, 255, 0.6);
-			width: 100px;
-			height: 165px;
-			margin: 5px;
-			padding: 10px 5px;
+			margin: 2%;
+			height: 190px;
 			text-align: center;
 		}
 		.jpsm-bg img {
-			width: 95px;
+			width: 100%;
+			height: 120px;
 		}
 		.jpsm-title {
-			width: 100px;
+			width: 100%;
 			color: red;
 			font-weight: bold;
 		}
@@ -88,7 +89,7 @@
 								<div class="playbtn" @click="dialogFormVisible = true"></div>
 							</div>
 						</div>
-						<div style="margin: 0px 30px;">
+						<div style="margin: 0px 20px;">
 							<div class="m-title">活动奖品</div>
 							<el-row>
 								<el-col :span="8">
