@@ -1,25 +1,16 @@
 package com.tencent.wxcloudrun.controller;
 
 import com.tencent.wxcloudrun.config.ApiResponse;
-import com.tencent.wxcloudrun.dto.CounterRequest;
 import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
 import com.tencent.wxcloudrun.dto.LotteryRequest;
-import com.tencent.wxcloudrun.model.Counter;
-import com.tencent.wxcloudrun.model.LotteryCode;
-import com.tencent.wxcloudrun.service.CounterService;
 import com.tencent.wxcloudrun.service.LotteryService;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 /**
- * Copyright © 2022 ITL Info. Tech Ltd. All rights reserved.
+ * Copyright © 2022 hugh. Tech Ltd. All rights reserved.
  * 功能描述：抽奖控制器
  *
  * @author: 刘锦辉

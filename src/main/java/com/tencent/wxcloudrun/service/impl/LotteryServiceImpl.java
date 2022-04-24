@@ -6,7 +6,6 @@ import com.tencent.wxcloudrun.dto.LotteryRequest;
 import com.tencent.wxcloudrun.model.LotteryCode;
 import com.tencent.wxcloudrun.service.LotteryService;
 import com.tencent.wxcloudrun.utils.DateUtil;
-import lombok.extern.log4j.Log4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * Copyright © 2022 ITL Info. Tech Ltd. All rights reserved.
+ * Copyright © 2022 hugh. Tech Ltd. All rights reserved.
  * 功能描述：
  *
  * @author: 刘锦辉

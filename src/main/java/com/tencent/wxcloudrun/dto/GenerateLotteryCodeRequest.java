@@ -3,7 +3,7 @@ package com.tencent.wxcloudrun.dto;
 import lombok.Data;
 
 /**
- * Copyright © 2022 ITL Info. Tech Ltd. All rights reserved.
+ * Copyright © 2022 hugh. Tech Ltd. All rights reserved.
  * 功能描述：
  *
  * @author: 刘锦辉

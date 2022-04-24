@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Copyright © 2022 ITL Info. Tech Ltd. All rights reserved.
+ * Copyright © 2022 hugh. Tech Ltd. All rights reserved.
  * 功能描述：抽奖接口
  *
  * @author: 刘锦辉
