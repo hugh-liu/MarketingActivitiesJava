@@ -1,20 +1,18 @@
-package com.tencent.wxcloudrun.controller;
+package com.hugh.controller;
 
+import com.hugh.config.ApiResponse;
+import com.hugh.dto.CounterRequest;
+import com.hugh.model.Counter;
+import com.hugh.service.CounterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.tencent.wxcloudrun.config.ApiResponse;
-import com.tencent.wxcloudrun.dto.CounterRequest;
-import com.tencent.wxcloudrun.model.Counter;
-import com.tencent.wxcloudrun.service.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.List;
 
 /**
  * counter控制器

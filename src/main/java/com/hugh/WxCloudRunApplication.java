@@ -1,11 +1,11 @@
-package com.tencent.wxcloudrun;
+package com.hugh;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.tencent.wxcloudrun.dao"})
+@MapperScan(basePackages = {"com.hugh.dao"})
 public class WxCloudRunApplication {  
 
   public static void main(String[] args) {

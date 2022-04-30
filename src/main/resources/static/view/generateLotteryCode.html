@@ -30,6 +30,7 @@
 					<el-form class="demo-form-inline" @submit.native.prevent>
 						<el-form-item label="奖品等级">
 							<el-select v-model="form.awardLevel" placeholder="选择奖品等级" @change="awardLevelChange">
+								<el-option label="选择奖品等级" value="0"></el-option>
 								<el-option label="一等奖" value="1"></el-option>
 								<el-option label="二等奖" value="2"></el-option>
 								<el-option label="三等奖" value="3"></el-option>
@@ -43,8 +44,8 @@
 						</el-form-item>
 						<el-form-item>
 							<el-button type="primary" @click="generate">生成抽奖码</el-button>
-							<el-button type="primary" @click="exportExcel" icon="el-icon-download">导出抽奖码</el-button>
 							<el-button type="primary" @click="getLotteryCode">获取未使用的抽奖码</el-button>
+							<el-button type="primary" @click="exportExcel" icon="el-icon-download">导出抽奖码</el-button>
 						</el-form-item>
 					</el-form>
 					<el-table ref="table" :data="tableData" style="width: 100%">
@@ -73,7 +74,7 @@
 				return {
 					pageTitle: '获取抽奖码',
 					form: {
-						awardLevel: null,
+						awardLevel: 0,
 						number: 0,
 					},
 					tableData: []
@@ -86,7 +87,7 @@
 			methods: {
 				// 生成抽奖码
 				generate() {
-					if (!vm.form.awardLevel) {
+					if (!vm.form.awardLevel || vm.form.awardLevel == 0) {
 						ElMessage.error("请选择奖品等级");
 						return;
 					}

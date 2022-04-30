@@ -1,8 +1,8 @@
-package com.tencent.wxcloudrun.service;
+package com.hugh.service;
 
-import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
-import com.tencent.wxcloudrun.dto.LotteryRequest;
-import com.tencent.wxcloudrun.model.LotteryCode;
+import com.hugh.model.LotteryCode;
+import com.hugh.dto.GenerateLotteryCodeRequest;
+import com.hugh.dto.LotteryRequest;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.tencent.wxcloudrun.interceptor;
+package com.hugh.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
+import java.util.UUID;
 
 /**
  * Copyright © 2022 hugh. Tech Ltd. All rights reserved.
@@ -21,30 +22,41 @@ import java.net.URLEncoder;
 public class WxRequestInterceptor implements HandlerInterceptor {
 
     @Value("${wx.appId}")
-    private String appId;
+    private String appId = UUID.randomUUID().toString().replace("-", "");
 
     @Value("${wx.appSecret}")
     private String appSecret;
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object obj, Exception e) throws Exception {
-        //
+        System.out.println("测试1");
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object obj, ModelAndView e) throws Exception {
-        //
+        System.out.println("测试2");
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
-        String backURL = request.getRequestURL().toString();
+        String userAgent = request.getHeader("User-Agent");
+        String uri = request.getRequestURI();
+        if (uri.equals("/authorize") && (userAgent == null || !userAgent.toLowerCase().contains("micromessenger"))) {
+            return true;
+        }
+        //判断是否是微信浏览器
+        if (userAgent == null || !userAgent.toLowerCase().contains("micromessenger")) {
+            response.sendRedirect("/authorize");
+            return false;
+        }
+        if (uri.equals("/authorize")) {
+            response.sendRedirect("");
+        }
+        /*String backURL = request.getRequestURL().toString();
+        HttpSession session = request.getSession();
         if (request.getQueryString() != null) {
             backURL += "?" + request.getQueryString();
         }
-        HttpSession session = request.getSession();
-        String userAgent = request.getHeader("User-Agent");
-        //判断是否是微信浏览器
         if (userAgent == null || !userAgent.toLowerCase().contains("micromessenger")) {
             return true;
         }
@@ -70,7 +82,7 @@ public class WxRequestInterceptor implements HandlerInterceptor {
         }
         String accessToken = authJson.getString("access_token");
         wxUserInfoJson = this.getWxUserInfo(accessToken, openId);
-        session.setAttribute("sessionWxUserInfoJson", wxUserInfoJson);
+        session.setAttribute("sessionWxUserInfoJson", wxUserInfoJson);*/
         return true;
     }
 

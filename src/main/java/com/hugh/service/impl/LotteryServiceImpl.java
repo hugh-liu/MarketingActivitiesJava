@@ -1,11 +1,11 @@
-package com.tencent.wxcloudrun.service.impl;
+package com.hugh.service.impl;
 
-import com.tencent.wxcloudrun.dao.LotteryCodeMapper;
-import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
-import com.tencent.wxcloudrun.dto.LotteryRequest;
-import com.tencent.wxcloudrun.model.LotteryCode;
-import com.tencent.wxcloudrun.service.LotteryService;
-import com.tencent.wxcloudrun.utils.DateUtil;
+import com.hugh.dao.LotteryCodeMapper;
+import com.hugh.model.LotteryCode;
+import com.hugh.dto.GenerateLotteryCodeRequest;
+import com.hugh.dto.LotteryRequest;
+import com.hugh.service.LotteryService;
+import com.hugh.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

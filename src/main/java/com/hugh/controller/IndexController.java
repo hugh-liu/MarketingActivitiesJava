@@ -1,4 +1,4 @@
-package com.tencent.wxcloudrun.controller;
+package com.hugh.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +31,11 @@ public class IndexController {
   @GetMapping(value = "/indexWC")
   public String indexWC() {
     return "indexWC";
+  }
+
+  @GetMapping(value = "/authorize")
+  public String error() {
+    return "authorize";
   }
 
 }

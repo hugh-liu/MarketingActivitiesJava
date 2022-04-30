@@ -1,6 +1,6 @@
-package com.tencent.wxcloudrun.dao;
+package com.hugh.dao;
 
-import com.tencent.wxcloudrun.model.LotteryCode;
+import com.hugh.model.LotteryCode;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

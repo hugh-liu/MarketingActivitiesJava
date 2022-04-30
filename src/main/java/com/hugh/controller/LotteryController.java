@@ -1,9 +1,9 @@
-package com.tencent.wxcloudrun.controller;
+package com.hugh.controller;
 
-import com.tencent.wxcloudrun.config.ApiResponse;
-import com.tencent.wxcloudrun.dto.GenerateLotteryCodeRequest;
-import com.tencent.wxcloudrun.dto.LotteryRequest;
-import com.tencent.wxcloudrun.service.LotteryService;
+import com.hugh.config.ApiResponse;
+import com.hugh.dto.GenerateLotteryCodeRequest;
+import com.hugh.dto.LotteryRequest;
+import com.hugh.service.LotteryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
