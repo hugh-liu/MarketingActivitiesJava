@@ -12,8 +12,15 @@
 	<style>
 		body {
 			margin: 0px;
-			background: #fbe3cc;
+			background: #fddbdc;
 			font-family: "微软雅黑", "microsoft yahei";
+		}
+		
+		.lucky-draw {
+			width: 100%;
+			height: 230px;
+			margin-top: 20px;
+			margin-bottom: -30px;
 		}
 
 		.g-lottery-case {
@@ -79,15 +86,14 @@
 		}
 		.prize {
 			/*background: url(../img/prize.png) no-repeat;*/
-			width: 260px;
-			height: 260px;
-			background-size: 260px;
+			text-align: center;
+			width: 230px;
+			background-size: 230px;
 			background-position: center;
 		}
 		.prize img {
-			width: 100px;
-			height: 95px;
-			margin: 75px 80px;
+			width: 170px;
+			margin: 0px 30px;
 		}
 	</style>
 	<body>
@@ -95,7 +101,8 @@
 			<el-row>
 				<el-col>
 					<div class="g-lottery-case">
-						<div style="color: darkred; font-size: 40px; font-weight: bold; margin: 20px;">幸运大抽奖</div>
+						<img class="lucky-draw" src="../img/lucky-draw.png"/>
+						<!-- <div style="color: darkred; font-size: 40px; font-weight: bold; margin: 20px;">幸运大抽奖</div> -->
 						<div class="g-lottery-box">
 							<div class="g-lottery-img">
 								<div class="playbtn" @click="dialogFormVisible1 = true"></div>
@@ -161,22 +168,23 @@
 								<br />
 								2.中奖后不可更换奖项 除现金之外的奖品不可折现
 							</div>
-							<div class="m-title">我的奖品</div>
-							<div>
-								<el-table ref="prizeTable" :data="prizeTable" border highlight-current-row>
-									<el-table-column type="index" label="序号" width="60px" align="center">
-									</el-table-column>
-									<el-table-column prop="awardLevel" label="奖品" align="center">
-										<template #default="scope">
-											{{ awardLevelToText(scope.row.awardLevel)}}
-										</template>
-									</el-table-column>
-									<el-table-column prop="usageTime" label="使用时间" width="160px" align="center">
-									</el-table-column>
-								</el-table>
+							<div style="margin: 20px 0px">
+								<el-button type="danger" round @click="dialogFormVisible2 = true">查询我的奖品</el-button>
+								<el-button type="danger" round @click="dialogFormVisible3 = true">保存收货地址</el-button>
 							</div>
-							<el-button type="danger" round @click="dialogFormVisible2 = true">查询我的奖品</el-button>
-							<el-button type="danger" round @click="dialogFormVisible3 = true">保存收货地址</el-button>
+							<div class="m-title">我的奖品</div>
+							<el-table ref="prizeTable" :data="prizeTable" border highlight-current-row>
+								<el-table-column type="index" label="序号" width="60px" align="center">
+								</el-table-column>
+								<el-table-column prop="awardLevel" label="奖品" align="center">
+									<template #default="scope">
+										{{ awardLevelToText(scope.row.awardLevel)}}
+									</template>
+								</el-table-column>
+								<el-table-column prop="usageTime" label="使用时间" width="160px" align="center">
+								</el-table-column>
+							</el-table>
+							<br />
 						</div>
 					</div>
 				</el-col>
@@ -190,7 +198,7 @@
 					<el-input v-model="form.winner" placeholder="请输入手机号" />
 				</el-row>
 				<template #footer>
-					<el-button type="danger" round @click="lotteryClick">抽奖</el-button>
+					<el-button type="danger" round @click="lotteryClick">抽&nbsp;&nbsp;奖</el-button>
 				</template>
 			</el-dialog>
 			
@@ -220,12 +228,13 @@
 				</template>
 			</el-dialog>
 			
-			<el-dialog v-model="dialogFormVisible4" title="中奖啦" center width="310px">
+			<el-dialog v-model="dialogFormVisible4" title="恭喜您，中奖啦" center width="280px">
 				<div class="prize">
 					<img :src="prizeImg"/>
+					<span style="color: red; font-size: 18px;">{{prize}}</span>
 				</div>
 				<template #footer>
-					<span style="color: red; font-size: 18px;">{{prize}}</span>
+					<el-button type="danger" round @click="dialogFormVisible3 = true">领取奖品</el-button>
 				</template>
 			</el-dialog>
 		</div>
@@ -327,7 +336,7 @@
 						animateTo: - (angle + 1440), //让它根据得出来的结果加上1440度旋转
 						callback: function() {
 							vm.isture = false; // 标志为 执行完毕
-							vm.prize = "恭喜您获得：" + vm.awardLevelToText(awards);
+							vm.prize = vm.awardLevelToText(awards);
 							vm.prizeImg = '../img/' + awards + '.png'
 							vm.dialogFormVisible4 = true;
 							vm.queryPrize();
